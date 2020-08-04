@@ -13,7 +13,7 @@ import {
 
 const Footer = () => {
   return (
-    <div className="footer">
+    <footer>
       <div className="footer__left">
         <img
           src="https://static1.squarespace.com/static/5d2e2c5ef24531000113c2a4/5d392a924397f100011fa30e/5d4478a0ab37ff0001f18d7b/1580869069599/?format=500w"
@@ -45,7 +45,7 @@ const Footer = () => {
           </Grid>
         </Grid>
       </div>
-    </div>
+    </footer>
   );
 };
 

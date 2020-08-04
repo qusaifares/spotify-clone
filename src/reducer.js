@@ -4,7 +4,7 @@ export const initialState = {
   playing: false,
   item: null,
   // token:
-  //   'BQBPX6YuJUZ2YyK9tFOCKgNIcNTUhhxJymTolEwqwDIiZabf3RgpPvMo1Z35hh0xrLFxLhdH6qN6aaNLoxL0DqEOmA-blfDbsfLe5Mx7VPQlq2cc3fKJL9U2oF1O2wqzTjZ_KvYnurlb0O2jtYEaUxfNaOM39A',
+  //   'BQBVJ1-cctnHtpUSpyu-gkjsts2VIx4Lz_G5P9YyXl7ATbwCY30xn_HvZkoz_pnVLhh33wW9TF193L7RZ0kpYt3kz0UvX630O4pvopZUC1LbB8gIbGaivjV47hBFgptOPki5q_IHR5YflUgGc4NwxjiLTZx6Pg',
   token: null,
 };
 
