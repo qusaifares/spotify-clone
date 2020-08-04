@@ -3,11 +3,18 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { DataLayer } from './DataLayer';
+import reducer, { initialState } from './reducer';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Router>
+    <React.StrictMode>
+      <DataLayer initialState={initialState} reducer={reducer}>
+        <App />
+      </DataLayer>
+    </React.StrictMode>
+  </Router>,
   document.getElementById('root')
 );
 
