@@ -35,8 +35,14 @@ const App = () => {
           playlists,
         });
       });
+      spotify.getPlaylist('37i9dQZEVXcHYFnBNXK3Tt').then((res) =>
+        dispatch({
+          type: 'SET_DISCOVER_WEEKLY',
+          discover_weekly: res,
+        })
+      );
     }
-  }, []);
+  }, [token, dispatch]);
   console.log('TOKEN =====>', token);
   console.log(('USER ======>', user));
   return (
