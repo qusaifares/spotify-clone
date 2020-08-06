@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './Footer.css';
+import { useDataLayerValue } from "../../DataLayer";
 import { Grid, Slider } from '@material-ui/core';
 import {
-  PlayCircleOutline,
+  PlayCircleOutline,PauseCircleOutline,
   SkipPrevious,
   SkipNext,
   Shuffle,
@@ -11,25 +12,99 @@ import {
   VolumeDown,
 } from '@material-ui/icons';
 
-const Footer = () => {
+const Footer = ({spotify}) => {
+  const [{ token, item, playing }, dispatch] = useDataLayerValue();
+
+  useEffect(() => {
+    spotify.getMyCurrentPlaybackState().then((r) => {
+      console.log(r);
+
+      dispatch({
+        type: "SET_PLAYING",
+        playing: r.is_playing,
+      });
+
+      dispatch({
+        type: "SET_ITEM",
+        item: r.item,
+      });
+    });
+  }, [spotify, dispatch]);
+
+  const handlePlayPause = () => {
+    if (playing) {
+      spotify.pause();
+      dispatch({
+        type: "SET_PLAYING",
+        playing: false,
+      });
+    } else {
+      spotify.play();
+      dispatch({
+        type: "SET_PLAYING",
+        playing: true,
+      });
+    }
+  };
+
+  const skipNext = () => {
+    spotify.skipToNext();
+    spotify.getMyCurrentPlayingTrack().then((r) => {
+      console.log('current', r)
+      dispatch({
+        type: "SET_ITEM",
+        item: r.item,
+      });
+      dispatch({
+        type: "SET_PLAYING",
+        playing: true,
+      });
+    });
+  };
+
+  const skipPrevious = () => {
+    spotify.skipToPrevious();
+    spotify.getMyCurrentPlayingTrack().then((r) => {
+      dispatch({
+        type: "SET_ITEM",
+        item: r.item,
+      });
+      dispatch({
+        type: "SET_PLAYING",
+        playing: true,
+      });
+    });
+  };
   return (
     <footer>
       <div className="footer__left">
         <img
-          src="https://static1.squarespace.com/static/5d2e2c5ef24531000113c2a4/5d392a924397f100011fa30e/5d4478a0ab37ff0001f18d7b/1580869069599/?format=500w"
-          alt=""
+          src={item?.album.images[0].url}
+          alt=''
           className="footer__albumLogo"
         />
         <div className="footer__songInfo">
-          <h4>Song Name</h4>
-          <p>Artist</p>
+        <h4>{item?.name}</h4>
+            <p>{item?.artists.map((artist) => artist?.name).join(", ")}</p>
         </div>
       </div>
       <div className="footer__center">
         <Shuffle className="footer__green" />
-        <SkipPrevious className="footer__icon" />
-        <PlayCircleOutline fontSize="large" className="footer__icon" />
-        <SkipNext className="footer__icon" />
+        <SkipPrevious onClick={skipPrevious} className="footer__icon" />
+        {playing ? (
+          <PauseCircleOutline
+            onClick={handlePlayPause}
+            fontSize="large"
+            className="footer__icon"
+          />
+        ) : (
+          <PlayCircleOutline
+            onClick={handlePlayPause}
+            fontSize="large"
+            className="footer__icon"
+          />
+        )}
+        <SkipNext onClick={skipNext} className="footer__icon" />
         <Repeat className="footer__green" />
       </div>
       <div className="footer__right">

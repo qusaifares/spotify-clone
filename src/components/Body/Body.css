@@ -4,6 +4,7 @@
   color: white;
   height: 100vh;
   padding: 30px;
+  overflow-y: scroll;
 }
 
 .body__info {

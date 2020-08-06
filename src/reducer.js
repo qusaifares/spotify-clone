@@ -6,9 +6,10 @@ export const initialState = {
   top_artists: null,
   playing: false,
   item: null,
-  token:
-    'BQB5jej0PGrWFfrDKlJxj1Dhk1zllgJTguPpadh3QdwQmOfQUjjrATm_zm06IsVL3esD6DvQe4rc_4hsM8OnQjPk9O8MNGkC1u9xZhnVaEie86ckVaFZSfd4nnIysXYXbntzm-RiyTBaf9LpbGjcimSjafvQ9g',
-  // token: null,
+  playlist_view: null,
+  // token:
+  //   'BQDWpTisiZS1aqjQZFVOVVoZGzJGgZEmarqsjbGXBbXVxbtwa3OrsL60EN4WzSsEDkHnR3CxYxCbbFzSd5gW5JMbFvDl_VSuz6VLOuYelUEyos_knU0onDpDryjk7nwkkYZW-WSS4ygCbiCSEEis8DNz2PjRZQ',
+  token: null,
 };
 
 const reducer = (state, action) => {
@@ -24,7 +25,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         playing: action.playing,
-      };
+      }; 
 
     case 'SET_ITEM':
       return {
@@ -56,11 +57,16 @@ const reducer = (state, action) => {
         spotify: action.spotify,
       };
 
-    case 'SET_PLAYLISTS':
-      return {
-        ...state,
-        playlists: action.playlists,
-      };
+      case 'SET_PLAYLISTS':
+        return {
+          ...state,
+          playlists: action.playlists,
+        };
+        case 'SET_PLAYLIST_VIEW':
+          return {
+            ...state,
+            playlist_view: action.playlist_view,
+          };
     default:
       return state;
   }
